@@ -26,4 +26,4 @@ add_custom_target(run_tests
                   DEPENDS world_test)
 
 enable_testing()
-add_test(tests hanabi_test)
+add_test(tests world_test)
