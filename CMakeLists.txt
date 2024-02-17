@@ -12,11 +12,11 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_library(tronWorld src/World.cpp)
+add_library(tronWorld src/World.cpp src/Coordinates.cpp)
 target_include_directories(tronWorld PUBLIC include)
 target_compile_features(tronWorld PUBLIC cxx_std_20)
 
-add_executable(world_test src/WorldTests.cpp)
+add_executable(world_test src/WorldTests.cpp src/CoordinatesTests.cpp)
 target_compile_features(world_test PUBLIC cxx_std_20)
 target_include_directories(world_test PUBLIC include)
 target_link_libraries(world_test gmock_main gtest gmock tronWorld)
