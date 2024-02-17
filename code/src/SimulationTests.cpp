@@ -1,19 +1,8 @@
 #include "tronWorld/Coordinates.hpp"
+#include "tronWorld/Simulation.hpp"
 #include "tronWorld/World.hpp"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
-
-class Simulation
-{
-public:
-  Simulation(const std::vector<std::tuple<Id, Location, Speed>>&) {}
-
-  World getCurrentState() const
-  {
-    return World{ { { 3, Location{ { 4, 4 }, { 0, -1 } }, 2 },
-                    { 7, Location{ { 6, 6 }, { 0, 1 } }, 2 } } };
-  }
-};
 
 auto matchLocation(const Location& location)
 {
@@ -36,7 +25,7 @@ auto matchWorldPlayer(const Id& id,
       testing::Field("speed", &World::PlayerParameters::speed, speed)));
 }
 
-TEST(first, first)
+TEST(SimulationTests, initialStateOfSimulationCanBeRetrieved)
 {
   Location p1Location{ { 4, 4 }, { 0, -1 } };
   Location p2Location{ { 6, 6 }, { 0, 1 } };

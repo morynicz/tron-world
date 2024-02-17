@@ -12,7 +12,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_library(tronWorld src/World.cpp src/Coordinates.cpp)
+add_library(tronWorld src/Simulation.cpp src/World.cpp src/Coordinates.cpp)
 target_include_directories(tronWorld PUBLIC include)
 target_compile_features(tronWorld PUBLIC cxx_std_20)
 
