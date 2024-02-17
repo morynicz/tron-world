@@ -1,4 +1,4 @@
-FROM gcc:13
+FROM gcc:13.2.0
 
 RUN apt-get update && apt-get install -y cmake ninja-build
 
