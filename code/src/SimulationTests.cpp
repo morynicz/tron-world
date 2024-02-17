@@ -1,34 +1,7 @@
 #include "tronWorld/Coordinates.hpp"
+#include "tronWorld/World.hpp"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
-
-using Speed = int;
-using Id = int;
-
-struct Location
-{
-  const Coordinates2d translation;
-  const Coordinates2d orientation;
-};
-
-struct World
-{
-  struct PlayerParameters
-  {
-    Location location;
-    Speed speed;
-  };
-  World(const std::vector<std::tuple<Id, Location, Speed>>& initialState)
-  {
-    players.emplace(std::get<0>(initialState[0]),
-                    PlayerParameters{ std::get<1>(initialState[0]),
-                                      std::get<2>(initialState[0]) });
-    players.emplace(std::get<0>(initialState[1]),
-                    PlayerParameters{ std::get<1>(initialState[1]),
-                                      std::get<2>(initialState[1]) });
-  }
-  std::map<Id, PlayerParameters> players{};
-};
 
 class Simulation
 {
