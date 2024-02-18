@@ -93,3 +93,25 @@ TEST_F(SimulationBasicMovementTests,
                   matchWorldPlayer(p1Id, { { 4, 0 }, { 0, -1 } }, p1Speed),
                   matchWorldPlayer(p2Id, { { 6, 10 }, { 0, 1 } }, p2Speed))));
 }
+
+TEST_F(SimulationBasicMovementTests, playersTurnLeftAndRight)
+{
+  auto player1Move =
+    Simulation::PlayerMove{ p1Id,
+                            Simulation::PlayerMove::Turn::LEFT,
+                            Simulation::PlayerMove::Acceleration::CONSTANT };
+  auto player2Move =
+    Simulation::PlayerMove{ p2Id,
+                            Simulation::PlayerMove::Turn::RIGHT,
+                            Simulation::PlayerMove::Acceleration::CONSTANT };
+
+  simulation.advance({ player1Move, player2Move });
+
+  EXPECT_THAT(simulation.getCurrentState(),
+              testing::Field(
+                "players",
+                &World::players,
+                testing::UnorderedElementsAre(
+                  matchWorldPlayer(p1Id, { { 2, 4 }, { -1, 0 } }, p1Speed),
+                  matchWorldPlayer(p2Id, { { 4, 6 }, { -1, 0 } }, p2Speed))));
+}

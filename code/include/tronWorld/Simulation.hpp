@@ -8,7 +8,9 @@ public:
   {
     enum class Turn
     {
-      KEEP_AHEAD
+      LEFT,
+      KEEP_AHEAD,
+      RIGHT,
     };
 
     enum class Acceleration
