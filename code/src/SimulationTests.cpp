@@ -53,11 +53,11 @@ TEST_F(SimulationBasicMovementTests, playersMoveInSpecifiedDirection)
   auto player1Move =
     Simulation::PlayerMove{ p1Id,
                             Simulation::PlayerMove::Turn::KEEP_AHEAD,
-                            Simulation::PlayerMove::Acceleration::CONSTANT };
+                            Simulation::PlayerMove::Acceleration::NONE };
   auto player2Move =
     Simulation::PlayerMove{ p2Id,
                             Simulation::PlayerMove::Turn::KEEP_AHEAD,
-                            Simulation::PlayerMove::Acceleration::CONSTANT };
+                            Simulation::PlayerMove::Acceleration::NONE };
 
   simulation.advance({ player1Move, player2Move });
 
@@ -76,11 +76,11 @@ TEST_F(SimulationBasicMovementTests,
   auto player1Move =
     Simulation::PlayerMove{ p1Id,
                             Simulation::PlayerMove::Turn::KEEP_AHEAD,
-                            Simulation::PlayerMove::Acceleration::CONSTANT };
+                            Simulation::PlayerMove::Acceleration::NONE };
   auto player2Move =
     Simulation::PlayerMove{ p2Id,
                             Simulation::PlayerMove::Turn::KEEP_AHEAD,
-                            Simulation::PlayerMove::Acceleration::CONSTANT };
+                            Simulation::PlayerMove::Acceleration::NONE };
 
   simulation.advance({ player1Move, player2Move });
   simulation.advance({ player1Move, player2Move });
@@ -99,11 +99,11 @@ TEST_F(SimulationBasicMovementTests, playersTurnLeftAndRight)
   auto player1Move =
     Simulation::PlayerMove{ p1Id,
                             Simulation::PlayerMove::Turn::LEFT,
-                            Simulation::PlayerMove::Acceleration::CONSTANT };
+                            Simulation::PlayerMove::Acceleration::NONE };
   auto player2Move =
     Simulation::PlayerMove{ p2Id,
                             Simulation::PlayerMove::Turn::RIGHT,
-                            Simulation::PlayerMove::Acceleration::CONSTANT };
+                            Simulation::PlayerMove::Acceleration::NONE };
 
   simulation.advance({ player1Move, player2Move });
 
@@ -114,4 +114,26 @@ TEST_F(SimulationBasicMovementTests, playersTurnLeftAndRight)
                 testing::UnorderedElementsAre(
                   matchWorldPlayer(p1Id, { { 2, 4 }, { -1, 0 } }, p1Speed),
                   matchWorldPlayer(p2Id, { { 4, 6 }, { -1, 0 } }, p2Speed))));
+}
+
+TEST_F(SimulationBasicMovementTests, playersAccelerateAndBrake)
+{
+  auto player1Move =
+    Simulation::PlayerMove{ p1Id,
+                            Simulation::PlayerMove::Turn::KEEP_AHEAD,
+                            Simulation::PlayerMove::Acceleration::POSITIVE };
+  auto player2Move =
+    Simulation::PlayerMove{ p2Id,
+                            Simulation::PlayerMove::Turn::RIGHT,
+                            Simulation::PlayerMove::Acceleration::NEGATIVE };
+
+  simulation.advance({ player1Move, player2Move });
+
+  EXPECT_THAT(
+    simulation.getCurrentState(),
+    testing::Field("players",
+                   &World::players,
+                   testing::UnorderedElementsAre(
+                     matchWorldPlayer(p1Id, { { 4, 1 }, { 0, -1 } }, 3),
+                     matchWorldPlayer(p2Id, { { 5, 6 }, { -1, 0 } }, 1))));
 }

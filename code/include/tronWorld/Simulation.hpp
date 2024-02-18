@@ -15,7 +15,9 @@ public:
 
     enum class Acceleration
     {
-      CONSTANT
+      NEGATIVE,
+      NONE,
+      POSITIVE
     };
 
     Id id;
