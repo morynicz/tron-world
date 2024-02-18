@@ -1,7 +1,7 @@
 #include "tronWorld/Coordinates.hpp"
 #include <ostream>
 
-Coordinates2d operator+(const Coordinates2d& lhs, Coordinates2d& rhs)
+Coordinates2d operator+(const Coordinates2d& lhs, const Coordinates2d& rhs)
 {
   return { lhs.x + rhs.x, lhs.y + rhs.y };
 }

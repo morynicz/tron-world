@@ -44,10 +44,17 @@ void Simulation::advance(const std::vector<Simulation::PlayerMove>& moves)
   {
     auto& params = state.players.at(move.id);
 
+    state.walls.insert_or_assign(params.location.translation, move.id);
     auto& orientation = params.location.orientation;
     orientation *= rotations.at(move.turn);
     auto& speed = params.speed;
     speed += accelerations.at(move.acceleration);
+    for (Speed s = 0; s < speed; ++s)
+    {
+      state.walls.insert_or_assign(
+        params.location.translation + orientation * s, move.id);
+    }
+
     params.location.translation += orientation * speed;
   }
 }

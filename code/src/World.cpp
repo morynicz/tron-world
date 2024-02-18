@@ -40,5 +40,10 @@ std::ostream& operator<<(std::ostream& os, const World& world)
   {
     os << playerParameters.first << ": " << playerParameters.second << ", ";
   }
+  os << "}, walls: {";
+  for (const auto& wall : world.walls)
+  {
+    os << wall.first << ": " << wall.second << ", ";
+  }
   return os << "}}";
 }

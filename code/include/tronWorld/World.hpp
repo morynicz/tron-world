@@ -13,6 +13,9 @@ struct Location
   Coordinates2d orientation;
 };
 
+inline auto coordComp = [](const Coordinates2d& lhs, const Coordinates2d& rhs)
+{ return std::tie(lhs.x, lhs.y) < std::tie(rhs.x, rhs.y); };
+
 struct World
 {
   struct PlayerParameters
@@ -22,6 +25,7 @@ struct World
   };
   World(const std::vector<std::tuple<Id, Location, Speed>>& initialState);
   std::map<Id, PlayerParameters> players{};
+  std::map<Coordinates2d, Id, decltype(coordComp)> walls{};
 };
 
 std::ostream& operator<<(std::ostream& os, const Location& input);
