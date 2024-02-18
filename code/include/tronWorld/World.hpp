@@ -9,8 +9,8 @@ using Id = int;
 
 struct Location
 {
-  const Coordinates2d translation;
-  const Coordinates2d orientation;
+  Coordinates2d translation;
+  Coordinates2d orientation;
 };
 
 struct World
